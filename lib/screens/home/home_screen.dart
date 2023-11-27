@@ -24,9 +24,9 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: Colors.lightGreen,
           elevation: 0.0,
-          title: Text('Water Social'),
+          title: Text('Social Networks'),
           actions: <Widget>[
             StreamBuilder<AppUserData>(
               stream: database.user,
@@ -36,13 +36,12 @@ class HomeScreen extends StatelessWidget {
                   if (userData == null) return Loading();
                   return TextButton.icon(
                     icon: Icon(
-                      Icons.wine_bar,
+                      Icons.account_balance_rounded,
                       color: Colors.white,
                     ),
-                    label: Text('drink', style: TextStyle(color: Colors.white)),
-                    onPressed: () async {
-                      await database.saveUser(userData.name, userData.waterCounter + 1);
-                    },
+                    label: Text(userData.name,
+                        style: TextStyle(color: Colors.white)),
+                    onPressed: () {},
                   );
                 } else {
                   return Loading();
