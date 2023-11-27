@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "926999923553",
+    "project_id": "messagerie-3809f",
+    "storage_bucket": "messagerie-3809f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926999923553:android:6c17b273aff5ef5eb39320",
+        "android_client_info": {
+          "package_name": "com.example.efrei2023gr3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFUweNxXcRUneQT-_YluPeHQ6xbsHmT0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926999923553:android:0ec6043de27b5d8fb39320",
+        "android_client_info": {
+          "package_name": "com.example.projetfinal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFUweNxXcRUneQT-_YluPeHQ6xbsHmT0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
