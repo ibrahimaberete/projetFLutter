@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,8 @@ class _ChatState extends State<Chat> {
   }
 
   _scrollListener() {
-    if (listScrollController.offset >= listScrollController.position.maxScrollExtent &&
+    if (listScrollController.offset >=
+            listScrollController.position.maxScrollExtent &&
         !listScrollController.position.outOfRange) {
       setState(() {
         _nbElement += PAGINATION_INCREMENT;
@@ -64,23 +66,23 @@ class _ChatState extends State<Chat> {
   Widget buildListMessage() {
     return Flexible(
       child: StreamBuilder<List<Message>>(
-        stream: messageService.getMessage(chatParams.getChatGroupId(), _nbElement),
+        stream:
+            messageService.getMessage(chatParams.getChatGroupId(), _nbElement),
         builder: (BuildContext context, AsyncSnapshot<List<Message>> snapshot) {
           if (snapshot.hasData) {
-            List<Message> listMessage = snapshot.data?? List.from([]);
+            List<Message> listMessage = snapshot.data ?? List.from([]);
             return ListView.builder(
-                padding: EdgeInsets.all(10.0),
-                itemBuilder: (context, index) => MessageItem(
+              padding: EdgeInsets.all(10.0),
+              itemBuilder: (context, index) => MessageItem(
                   message: listMessage[index],
                   userId: chatParams.userUid,
-                  isLastMessage: isLastMessage(index, listMessage)
-                ),
+                  isLastMessage: isLastMessage(index, listMessage)),
               itemCount: listMessage.length,
               reverse: true,
               controller: listScrollController,
             );
           } else {
-            return Center(child:Loading());
+            return Center(child: Loading());
           }
         },
       ),
@@ -98,7 +100,8 @@ class _ChatState extends State<Chat> {
       width: double.infinity,
       height: 50.0,
       decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: Colors.black, width: 0.5)), color: Colors.white),
+          border: Border(top: BorderSide(color: Colors.black, width: 0.5)),
+          color: Colors.white),
       child: Row(
         children: [
           Material(
@@ -137,12 +140,20 @@ class _ChatState extends State<Chat> {
             ),
             color: Colors.white,
           ),
+          IconButton(
+            icon: Icon(Icons.emoji_emotions),
+            onPressed: () {
+              // Afficher le sélecteur d'emoji
+              showEmojiPickerModal();
+            },
+            color: Colors.blueGrey,
+          )
         ],
       ),
     );
   }
 
- /* Future getImage() async {
+  /* Future getImage() async {
     ImagePicker imagePicker = ImagePicker();
     PickedFile? pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -154,11 +165,13 @@ class _ChatState extends State<Chat> {
   }*/
 
   Future uploadFile(PickedFile file) async {
-    String fileName = DateTime.now().millisecondsSinceEpoch.toString() + ".jpeg";
+    String fileName =
+        DateTime.now().millisecondsSinceEpoch.toString() + ".jpeg";
     try {
       Reference reference = FirebaseStorage.instance.ref().child(fileName);
       final metadata = SettableMetadata(
-          contentType: 'image/jpeg', customMetadata: {'picked-file-path': file.path});
+          contentType: 'image/jpeg',
+          customMetadata: {'picked-file-path': file.path});
       TaskSnapshot snapshot;
       if (kIsWeb) {
         snapshot = await reference.putData(await file.readAsBytes(), metadata);
@@ -194,7 +207,23 @@ class _ChatState extends State<Chat> {
       textEditingController.clear();
     } else {
       Fluttertoast.showToast(
-          msg: 'Nothing to send', backgroundColor: Colors.red, textColor: Colors.white);
+          msg: 'Nothing to send',
+          backgroundColor: Colors.red,
+          textColor: Colors.white);
     }
+  }
+
+  void showEmojiPickerModal() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return EmojiPicker(
+          onEmojiSelected: (emoji, category) {
+            textEditingController.text += category.emoji;
+          },
+          config: Config(),
+        );
+      },
+    );
   }
 }
