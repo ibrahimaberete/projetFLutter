@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/user.dart';
 import 'database.dart';
-import 'notification_service.dart';
 
 class AuthenticationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -14,9 +13,6 @@ class AuthenticationService {
 
   void initUser(User? user) async {
     if (user == null) return;
-    NotificationService.getToken().then((value) {
-      DatabaseService(user.uid).saveToken(value);
-    });
   }
 
   Stream<AppUser?> get user {
