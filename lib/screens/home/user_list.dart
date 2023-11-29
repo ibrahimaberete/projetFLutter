@@ -49,7 +49,6 @@ class _UserListState extends State<UserList> {
           isFavorite: favoriteUsers.contains(user.uid),
           toggleFavorite: () {
             setState(() {
-              print(favoriteUsers);
               if (favoriteUsers.contains(user.uid)) {
                 favoriteUsers.remove(user.uid);
               } else {
