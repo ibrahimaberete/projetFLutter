@@ -39,9 +39,7 @@ class DatabaseService {
     try {
       DocumentSnapshot<Map<String, dynamic>> snapshot =
           await userCollection.doc(uid).get();
-      print('data $snapshot');
       if (snapshot.exists) {
-        print('data $snapshot');
         Map<String, dynamic> userData = snapshot.data()!;
         List<String> favorites = List<String>.from(userData['favorites'] ?? []);
         return favorites;
