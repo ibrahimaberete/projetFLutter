@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                   if (userData == null) return Loading();
                   return TextButton.icon(
                     icon: Icon(
-                      Icons.account_balance_rounded,
+                      Icons.person,
                       color: Colors.white,
                     ),
                     label: Text(userData.name,
@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
             ),
             TextButton.icon(
               icon: Icon(
-                Icons.person,
+                Icons.exit_to_app,
                 color: Colors.white,
               ),
               label: Text('logout', style: TextStyle(color: Colors.white)),
