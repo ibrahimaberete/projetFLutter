@@ -7,14 +7,12 @@ import '../../common/loading.dart';
 import '../../models/user.dart';
 import '../../services/authentication.dart';
 import '../../services/database.dart';
-import '../../services/notification_service.dart';
 
 class HomeScreen extends StatelessWidget {
   final AuthenticationService _auth = AuthenticationService();
 
   @override
   Widget build(BuildContext context) {
-    NotificationService.initialize();
     final user = Provider.of<AppUser?>(context);
     if (user == null) throw Exception("user not found");
     final database = DatabaseService(user.uid);
