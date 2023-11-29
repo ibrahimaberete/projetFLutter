@@ -46,9 +46,11 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
         : Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              backgroundColor: Colors.blueGrey,
+              backgroundColor: Colors.lightGreen,
               elevation: 0.0,
-              title: Text(showSignIn ? 'Sign in to Water Social' : 'Register to Water Social'),
+              title: Text(showSignIn
+                  ? 'Sign in to Social Network'
+                  : 'Register to Social Network'),
               actions: <Widget>[
                 TextButton.icon(
                   icon: Icon(
@@ -70,22 +72,27 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
                     !showSignIn
                         ? TextFormField(
                             controller: nameController,
-                            decoration: textInputDecoration.copyWith(hintText: 'name'),
-                            validator: (value) =>
-                                value == null || value.isEmpty ? "Enter a name" : null,
+                            decoration:
+                                textInputDecoration.copyWith(hintText: 'name'),
+                            validator: (value) => value == null || value.isEmpty
+                                ? "Enter a name"
+                                : null,
                           )
                         : Container(),
                     !showSignIn ? SizedBox(height: 10.0) : Container(),
                     TextFormField(
                       controller: emailController,
-                      decoration: textInputDecoration.copyWith(hintText: 'email'),
-                      validator: (value) =>
-                          value == null || value.isEmpty ? "Enter an email" : null,
+                      decoration:
+                          textInputDecoration.copyWith(hintText: 'email'),
+                      validator: (value) => value == null || value.isEmpty
+                          ? "Enter an email"
+                          : null,
                     ),
                     SizedBox(height: 10.0),
                     TextFormField(
                       controller: passwordController,
-                      decoration: textInputDecoration.copyWith(hintText: 'password'),
+                      decoration:
+                          textInputDecoration.copyWith(hintText: 'password'),
                       obscureText: true,
                       validator: (value) => value != null && value.length < 6
                           ? "Enter a password with at least 6 characters"
@@ -105,8 +112,10 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
                           var name = nameController.value.text;
 
                           dynamic result = showSignIn
-                              ? await _auth.signInWithEmailAndPassword(email, password)
-                              : await _auth.registerWithEmailAndPassword(name, email, password);
+                              ? await _auth.signInWithEmailAndPassword(
+                                  email, password)
+                              : await _auth.registerWithEmailAndPassword(
+                                  name, email, password);
                           if (result == null) {
                             setState(() {
                               loading = false;
