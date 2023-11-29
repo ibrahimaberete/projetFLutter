@@ -23,10 +23,35 @@ class DatabaseService {
     var data = snapshot.data();
     if (data == null) throw Exception("user not found");
     return AppUserData(
-      uid: snapshot.id,
-      name: data['name'],
-      email: data['email'],
-    );
+        uid: snapshot.id,
+        name: data['name'],
+        email: data['email'],
+        favorites: []);
+  }
+
+  Future<void> updateUserFavorites(String uid, List<String> favorites) async {
+    {
+      return await userCollection.doc(uid).update({'favorites': favorites});
+    }
+  }
+
+  Future<List<String>> getUserFavorites(String uid) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await userCollection.doc(uid).get();
+      print('data $snapshot');
+      if (snapshot.exists) {
+        print('data $snapshot');
+        Map<String, dynamic> userData = snapshot.data()!;
+        List<String> favorites = List<String>.from(userData['favorites'] ?? []);
+        return favorites;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      print("Error fetching favorites: $e");
+      return [];
+    }
   }
 
   Stream<AppUserData> get user {
